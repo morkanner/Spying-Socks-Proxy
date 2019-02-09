@@ -1,0 +1,43 @@
+-----------------------------------------------------------------------------------------------------
+*****************************************************************************************************
+-----------------------------------------------------------------------------------------------------
+ _____                _                 _____               _          ______
+/  ___|              (_)               /  ___|             | |         | ___ \
+\ `--.  _ __   _   _  _  _ __    __ _  \ `--.   ___    ___ | | __ ___  | |_/ /_ __  ___ __  __ _   _
+ `--. \| '_ \ | | | || || '_ \  / _` |  `--. \ / _ \  / __|| |/ // __| |  __/| '__|/ _ \\ \/ /| | | |
+/\__/ /| |_) || |_| || || | | || (_| | /\__/ /| (_) || (__ |   < \__ \ | |   | |  | (_) |>  < | |_| |
+\____/ | .__/  \__, ||_||_| |_| \__, | \____/  \___/  \___||_|\_\|___/ \_|   |_|   \___//_/\_\ \__, |
+      | |      __/ |            __/ |                                                          __/ |
+      |_|     |___/            |___/                                                          |___/
+-----------------------------------------------------------------------------------------------------
+*****************************************************************************************************
+-----------------------------------------------------------------------------------------------------
+
+-----------------------
+Application description
+-----------------------
+The application starts a SOCKS v4 Proxy, listening on port 8080 and supporting (exactly) 20 concurrent connections.
+The program will start the proxy server, which will continue running until it is interrupted by SIGINT signal.
+The program will look for passwords passed using HTTP Basic Authentication, only in connections where the destination is with port 80, and the HTTP method is GET.
+(The CONNECT command of the SOCKS protocol is only implemented.)
+
+-----------------
+Files description
+-----------------
+* Constants.java - contains all constants that appear in the project.
+* ProxyHandler.java - manages the Socks proxy server operations.
+* ProxyServerInitiator.java - initializes a Socks proxy server that listens at given port with thread pool.
+* Socks4.java - contains the Socks version 4 infrastructure of the proxy server.
+* Sockspy.java - contains the main function of the program.
+* Utils.java - contains some utilization methods for other methods in the program.
+
+------------------
+Design description
+------------------
+The proxy server must be initialized by a port number, a server socket and a thread pool in order to support
+maximum number of concurrent connections. For each client socket that is connected to the server socket of the proxy server,
+a ProxyHandler thread runs and handles all proxy server operations.
+The class ProxyHandler has a member variable of type Socks4 which is used for supporting the protocol Socks version 4.
+Moreover, the classes Constants and Utils (defined above) are used by the classes of the project.
+
+© Mor Kanner - 2019
